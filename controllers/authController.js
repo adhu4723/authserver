@@ -77,12 +77,13 @@ exports.resetPassword = async (req, res) => {
   res.json({ message: "Password reset successful" });
 };
 
-exports.getuser=async(req,res)=>{
+exports.getuser = async (req, res) => {
     try {
-        const users=User.find()
-          res.json({ message: "user details" ,users});
+        const users = await User.find();
+        res.json({ message: "user details", users });
     } catch (error) {
         console.log(error);
-        
+        res.status(500).json({ message: "Server error" });
     }
-}
+};
+
