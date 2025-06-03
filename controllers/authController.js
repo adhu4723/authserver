@@ -39,7 +39,7 @@ exports.forgotPassword = async (req, res) => {
   user.resetTokenExpiry = Date.now() + 3600000; // 1 hour
   await user.save();
 
-const resetLink = `http://127.0.0.1:5500/frontend/reset-password.html?token=${token}`;
+const resetLink = `http://localhost:5173/ZenoTrip/?#/?showreset=true?token=${token}`;
 
   const transporter = nodemailer.createTransport({
     service: "Gmail",
@@ -60,7 +60,11 @@ const resetLink = `http://127.0.0.1:5500/frontend/reset-password.html?token=${to
 
 exports.resetPassword = async (req, res) => {
   const { token } = req.params;
+  console.log(token);
+  
   const { newPassword } = req.body;
+  console.log(newPassword);
+  
 
   const user = await User.findOne({
     resetToken: token,
